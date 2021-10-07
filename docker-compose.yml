@@ -4,11 +4,12 @@ services:
   db:
     image: mysql:5.7
     volumes:
-      - ./db:/var/lib/mysql
+      - ./db-dumps:/docker-entrypoint-initdb.d
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: lights-shop
+      
 
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
@@ -37,4 +38,4 @@ services:
       PS_DEV_MODE: 0
       PS_DOMAIN: localhost:80
     volumes:
-      - ./webs:/var/www/html
+      - ./webshop:/var/www/html

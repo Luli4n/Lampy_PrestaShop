@@ -1,0 +1,3 @@
+1. upewnij sie ze w folderze db-dumps masz dump bazy danych
+
+2. docker-compose up
