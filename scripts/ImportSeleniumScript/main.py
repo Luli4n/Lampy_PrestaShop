@@ -41,7 +41,7 @@ category = Select(driver.find_element(By.ID, 'entity'))
 category.select_by_value('1')
 
 driver.find_element(By.ID,"file").send_keys(os.getcwd()+"/przyklad.csv")
-
+driver.implicitly_wait(0.5)
 
 element = driver.find_element(By.CSS_SELECTOR,"[for='truncate_1']")
 driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
