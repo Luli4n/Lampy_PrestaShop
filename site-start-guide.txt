@@ -1,3 +1,5 @@
 1. upewnij sie ze w folderze db-dumps masz dump bazy danych
 
 2. docker-compose up
+chown -R www-data:root ./
+find . -type f -exec chmod 644 {} \; && find . -type d -exec chmod 755 {} \;

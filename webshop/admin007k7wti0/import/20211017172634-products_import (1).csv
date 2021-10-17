@@ -1,0 +1,12 @@
+Product ID;Active (0/1);Name *;,Categories (x,,y,,z...),;Price tax included;Tax rules ID;Wholesale price;On sale (0/1);Discount amount;Discount percent;Discount from (yyyy-mm-dd);Discount to (yyyy-mm-dd);Reference #;Supplier reference #;Supplier;Manufacturer;EAN13;UPC;Ecotax;Width;Height;Depth;Weight;Delivery time of in-stock products;Delivery time of out-of-stock products with allowed orders;Quantity;Minimal quantity;Low stock level;Send me an email when the quantity is under this level;Visibility;Additional shipping cost;Unity;Unit price;Summary;Description;,Tags (x,,y,,z...),;Meta title;Meta keywords;Meta description;URL rewritten;Text when in stock;Text when backorder allowed;,Available for order (0 = No,, 1 = Yes),;Product available date;Product creation date;,Show price (0 = No,, 1 = Yes),;,Image URLs (x,,y,,z...),;,Image alt texts (x,,y,,z...),;,Delete existing images (0 = No,, 1 = Yes),;Feature(Name:Value:Position);,Available online only (0 = No,, 1 = Yes),;Condition;,Customizable (0 = No,, 1 = Yes),;,Uploadable files (0 = No,, 1 = Yes),;,Text fields (0 = No,, 1 = Yes),;Out of stock action;Virtual product;File URL;Number of allowed downloads;Expiration date;Number of days;ID / Name of shop;Advanced stock management;Depends On Stock;Warehouse;,Accessories  (x,,y,,z...),
+3;1;ARTE kinkiet 1008C1 Aldex;KINKIETY;174.8;1;;0;;;;;;;;Aldex;;;;;;;;;;2;1;1;1;both;;;;<p>Krótki opis.</p>;"<p> Opis – tabelki <table>
+   <tr>
+      <td>moze</td> <td>byc</td> <td>dowolny</td>
+   </tr>
+   <tr>
+      <td>html</td> <td>5</td> <td>6</td>
+   </tr>
+   <tr>
+      <td>7</td> <td>8</td> <td>9</td>
+   </tr>
+</table> </p>";lampa;Meta title-arte-kinkiet-1008c1-aldex;Meta keywords-arte-kinkiet-1008c1-aldex;Meta description-arte-kinkiet-1008c1-aldex;30128arte-kinkiet-1008c1-aldex;Text gdy dostępny np Dostępny;Text kiedy mozna zamowic niedostepny;1;;;1;,https://www.imperiumlamp.pl/files/600/1008C1.jpg,,https://www.imperiumlamp.pl/files/producers/aldex_logo.png,;;0;;0;new;0;0;0;0;0;;;;;0;0;0;0;
