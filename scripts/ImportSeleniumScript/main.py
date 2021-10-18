@@ -1,3 +1,4 @@
+# coding=utf8
 import os
 
 from selenium import webdriver
@@ -9,7 +10,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-driver = webdriver.Chrome(executable_path=r"./seleniumdriver/linux/chromedriver")
+driver = webdriver.Chrome(r'C:\Users\Julian.Krabel\OneDrive - IHS Markit\Desktop\BE\Lampy_PrestaShop\scripts\ImportSeleniumScript\seleniumdriver\win\chromedriver.exe')
 driver.maximize_window()
 driver.get("http://localhost/admin007k7wti0/")
 assert "Imperium Lamp" in driver.title

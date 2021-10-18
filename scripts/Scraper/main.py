@@ -1,3 +1,4 @@
+# coding=utf8
 from bs4 import BeautifulSoup
 import requests
 import csv
@@ -51,7 +52,7 @@ def get_top_table(productInfo):
     for i in range(len(keys)):
         if(i == 0):
             topTable += "<dt>" + keys[i].text + "</dt>"
-            topTable += "<dd><a href = '" + values[i].next.attrs['href'] + "'>" + values[i].text + "</a></dd>"
+            topTable += "<dd>" + values[i].text + "</dd>"
             producer = values[i].text
         else:
             topTable += "<dt>" +keys[i].text + "</dt>"
