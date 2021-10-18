@@ -8,8 +8,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
 
-driver = webdriver.Chrome(executable_path=r"./seleniumdriver/linux/chromedriver")
+driver = webdriver.Chrome(executable_path=r"C:\Users\klaud\OneDrive\Pulpit\BE\Lampy_PrestaShop\scripts\ImportSeleniumScript\seleniumdriver\win\chromedriver.exe")
 driver.maximize_window()
 driver.get("http://localhost/admin007k7wti0/")
 assert "Imperium Lamp" in driver.title
@@ -28,6 +29,11 @@ try:
 except TimeoutException:
     print("Loading took too much time!")
 
+nav = driver.find_element(By.ID,"nav-sidebar")
+
+driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", nav)
+
+
 driver.find_elements(By.CSS_SELECTOR, ".material-icons.mi-settings_applications")[0].click()
 try:
     WebDriverWait(driver, delay).until(EC.presence_of_element_located((By.LINK_TEXT, 'Importuj')))
@@ -35,12 +41,14 @@ try:
 except TimeoutException:
     print("Loading took too much time!")
 
+driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", nav)
+
 driver.find_element(By.LINK_TEXT, 'Importuj').click()
 
 category = Select(driver.find_element(By.ID, 'entity'))
 category.select_by_value('1')
 
-driver.find_element(By.ID,"file").send_keys(os.getcwd()+"/przyklad.csv")
+driver.find_element(By.ID,"file").send_keys(os.getcwd()+"\productsInCSV.csv")
 driver.implicitly_wait(0.5)
 
 element = driver.find_element(By.CSS_SELECTOR,"[for='truncate_1']")
