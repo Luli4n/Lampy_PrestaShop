@@ -40,4 +40,4 @@ services:
       PS_DEV_MODE: 0
       PS_DOMAIN: localhost:80
     volumes:
-      - /var/www/html
+      - ./webshop:/var/www/html
