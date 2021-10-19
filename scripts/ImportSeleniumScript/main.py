@@ -12,7 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
 
-driver = webdriver.Chrome(r'C:\Users\klaud\OneDrive\Pulpit\BE\Lampy_PrestaShop\scripts\ImportSeleniumScript\seleniumdriver\win\chromedriver.exe')
+driver = webdriver.Chrome(r'/home/lulian/Documents/Lampy_PrestaShop/scripts/ImportSeleniumScript/seleniumdriver/linux/chromedriver')
 driver.maximize_window()
 driver.get("http://localhost/admin007k7wti0/")
 assert "Imperium Lamp" in driver.title
@@ -52,20 +52,20 @@ category.select_by_value('1')
 
 file_upload = driver.find_element(By.ID,"file")
 
-driver.execute_script("arguments[0].scrollIntoView(true);", file_upload)
+driver.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", file_upload)
 time.sleep(0.5)
-file_upload.send_keys(os.getcwd()+"\productsInCSV.csv")
+file_upload.send_keys(os.getcwd()+"/productsInCSV.csv")
 time.sleep(1)
 
 element = driver.find_element(By.CSS_SELECTOR,"[for='truncate_1']")
-driver.execute_script("arguments[0].scrollIntoView(true);", element)
+driver.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", element)
 time.sleep(0.5)
 
 element.click()
 
 submit_button = driver.find_element(By.NAME, "submitImportFile")
 
-driver.execute_script("arguments[0].scrollIntoView(true);", submit_button)
+driver.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", submit_button)
 time.sleep(0.5)
 
 submit_button.click()
@@ -78,7 +78,39 @@ driver.find_element(By.ID,"loadImportMatchs").click()
 
 driver.find_element(By.ID,"import").click()
 
-close_button = WebDriverWait(driver, 1000).until(
+WebDriverWait(driver, 10000).until(
 EC.element_to_be_clickable((By.ID, "import_close_button")))
 
+close_button = driver.find_element(By.ID, "import_close_button").click()
+
+# import zakonczony
+time.sleep(1)
+
+nav = driver.find_element(By.CSS_SELECTOR,".nav-bar-overflow")
+
+driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", nav)
+
+preferences = driver.find_element(By.CSS_SELECTOR,".material-icons.mi-settings")
+
+WebDriverWait(driver, 10).until(
+EC.element_to_be_clickable((By.CSS_SELECTOR,".material-icons.mi-settings")))
+
+preferences.click()
+
+driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", nav)
+
+
+WebDriverWait(driver, 10).until(
+EC.element_to_be_clickable((By.LINK_TEXT, 'Szukaj')))
+driver.find_element(By.LINK_TEXT, 'Szukaj').click()
+
+indexes = driver.find_element(By.LINK_TEXT,"Przebuduj cały indeks")
+
+driver.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'});", indexes)
+time.sleep(0.5)
+
+indexes.click()
+            
+WebDriverWait(driver, 10000).until(EC.presence_of_element_located((By.XPATH,"//*[text()='Zaktualizowano pomyślnie.']")))
+		
 driver.close()
