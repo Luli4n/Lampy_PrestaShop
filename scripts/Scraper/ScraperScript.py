@@ -1,28 +1,30 @@
+# coding=utf8
 from bs4 import BeautifulSoup
 import requests
-import json
+import time
 
 from PageModel import PageModel
 from ProductModel import ProductModel
-import time
-
+start_time = time.time()
 def initializer():
     pages = []
-    pages.append(PageModel("nowoczesne-kinkiety-scienne,29", "NOWOCZESNE", "KINKIETY"))
-    pages.append(PageModel("lampy-biurkowe-stolowe,28", "NOWOCZESNE", "LAMPY BIURKOWE"))
-    pages.append(PageModel("klasyczne-lampy-i-zyrandole,32", "KLASYCZNE", "ŻYRANDOLE"))
-    pages.append(PageModel("lampki-dzieciece-lampy-do-pokoju-dziecka,24", "DZIECIĘCE", ""))
-    pages.append(PageModel("lampy-lazienkowe,23", "ŁAZIENKOWE", ""))
-    pages.append(PageModel("zarowki-led-energooszczedne,56", "ŻARÓWKI", ""))
+    pages.append(PageModel("nowoczesne-kinkiety-scienne,29", "KINKIETY"))
+    pages.append(PageModel("lampy-biurkowe-stolowe,28", "LAMPY BIURKOWE"))
+    pages.append(PageModel("klasyczne-lampy-i-zyrandole,32", "ŻYRANDOLE"))
+    pages.append(PageModel("lampki-dzieciece-lampy-do-pokoju-dziecka,24", "DZIECIĘCE"))
+    pages.append(PageModel("lampy-lazienkowe,23", "ŁAZIENKOWE"))
+    pages.append(PageModel("zarowki-led-energooszczedne,56", "ŻARÓWKI"))
+    
     return pages
 
 mainUrl = "https://www.imperiumlamp.pl/"
 productsIdInUrl = "products"
 productValueSubstring = "product-cell product-main-cell"
 lamps = []
+id = 0
 pages = initializer()
-file = open('productsInJSON.json', 'w')
-file.write("[")
+file = open('productsInCSV.csv', 'w', encoding='utf-8')
+file.write("ID;Aktywny (0 lub 1);Nazwa;Kategorie (x,y,z…);Cena zawiera podatek. (brutto);ID reguły podatku;Koszt własny;W sprzedaży (0 lub 1);Wartość rabatu;Procent rabatu;Rabat od dnia (rrrr-mm-dd);Rabat do dnia (rrrr-mm-dd);Indeks #;Kod dostawcy #;Dostawca;Marka;EAN13;UPC;Ecotax;Szerokość;Wysokość;Głębokość;Waga;Czas dostawy produktów dostępnych w magazynie:;Czas dostawy wyprzedanych produktów z możliwością rezerwacji:;Ilość;Minimalna ilość;Niski poziom produktów w magazynie;Wyślij do mnie e-mail, gdy ilość jest poniżej tego poziomu;Widoczność;Dodatkowe koszty przesyłki;Jednostka dla ceny za jednostkę;Cena za jednostkę;Podsumowanie;Opis;Tagi (x,y,z…);Meta-tytuł;Słowa kluczowe meta;Opis meta;Przepisany URL;Etykieta, gdy w magazynie;Etykieta kiedy dozwolone ponowne zamówienie;Dostępne do zamówienia (0 = Nie, 1 = Tak);Data dostępności produktu;Data wytworzenia produktu;Pokaż cenę (0 = Nie, 1 = Tak);Adresy URL zdjęcia (x,y,z…);Tekst alternatywny dla zdjęć (x,y,z…);Usuń istniejące zdjęcia (0 = Nie, 1 = Tak);Cecha(Nazwa:Wartość:Pozycja:Indywidualne);Dostępne tylko online (0 = Nie, 1 = Tak);Stan:;Konfigurowalny (0 = Nie, 1 = Tak);Można wgrywać pliki (0 = Nie, 1 = Tak);Pola tekstowe (0 = Nie, 1 = Tak);Akcja kiedy brak na stanie;Wirtualny produkt (0 = No, 1 = Yes);Adres URL pliku;Ilość dozwolonych pobrań;Data wygaśnięcia (rrrr-mm-dd);Liczba dni;ID / Nazwa sklepu;Zaawansowane zarządzanie magazynem;Zależny od stanu magazynowego;Magazyn;Akcesoria (x,y,z…)")
 file.close()
 
 def get_content(url, prodID):
@@ -36,59 +38,73 @@ def get_images(productInfo):
     images = productInfo.find_all("img")
     mainPhoto = images[0]
     logo = images[3]
-    return mainPhoto["src"], logo["src"]
+    return mainUrl+mainPhoto["src"], mainUrl+logo["src"]
 
 def get_header(url):
     content = get_content(url, "productHead")
     return content.find("h2").next
 
-def get_main_info(productInfo):
+def get_top_table(productInfo):
     keys = productInfo.find_all("dt")
     values = productInfo.find_all("dd")
-    mainInfo = {}
+    topTable = "<dl>"
     for i in range(len(keys)):
-        if(i == 0):
-            mainInfo[keys[i].text] = values[i].next.attrs['href']
-            producer = values[i].text
-        else:
-            mainInfo[keys[i].text] = values[i].text
-    return producer, mainInfo
+        if keys[i].text != "Na stanie:":
+            if(i == 0):
+                topTable += "<dt>" + keys[i].text + "</dt>"
+                topTable += "<dd>" + values[i].text + "</dd>"
+                producer = values[i].text
+            else:
+                topTable += "<dt>" +keys[i].text + "</dt>"
+                topTable += "<dd>" + values[i].text + "</dd>"
+    topTable += "</dl>"
+    return producer, topTable
 
-def get_tech_info(productInfo):
+def get_bottom_table(productInfo):
     keys = productInfo.find_all("li")
-    techInfo = []
+    bottomTable = "<span>Dane techniczne</span><dl>"
     for key in keys:
-        techInfo.append(key.text)
-    return techInfo
+        li = key.text.split(':')[0]
+        #if
+        try:
+            em = key.text.split(':')[1] 
+        except:
+            em = ""
+        bottomTable += "<dt>"+ li + "</dt><dd>" + em + "</dd>"
+    bottomTable += "</dl>"
+    return bottomTable
 
 for page in pages:
     url = page.url
     title = page.title
-    subtitle = page.subtitle
     products = get_content(mainUrl + url, productsIdInUrl)
     results = products.find_all("div", lambda value: value and value.startswith(productValueSubstring))
     for result in results:
+        id += 1
         href = result.find("a").attrs['href']
-        header = get_header(mainUrl + href)
-        productInfo = get_content(mainUrl + href, "product")
-        mainPhoto, logo = get_images(productInfo)
+        link = requests.get(mainUrl + href)
+        content = link.text
+        soup = BeautifulSoup(content, "html.parser")
+        main = soup.find("main")
+        header = main.find("h2").text
+        mainPhoto, logo = get_images(main)
+        amount = ""
         try:
-            shortDesc = productInfo.find("h2").text
+            amount_text = main.find("dd", class_="stock").text
+            amount = amount_text.split(' ')[0]
+        except:
+            amount = ""
+        try:
+            shortDesc = main.find_all("h2")[1].text
             if not isinstance(shortDesc, str):
                 shortDesc = ""
         except:
             shortDesc = ""  
-        producer, mainInfo = get_main_info(productInfo)
-        price = productInfo.find("div", id = "price").text
-        techInfo = get_tech_info(productInfo)
-        lamp = ProductModel(title, subtitle, mainUrl+href, header, 
-            mainPhoto, logo, shortDesc, producer, mainInfo, price, techInfo)
-        product = lamp.convert_to_JSON()
-        start_time = time.time()
-        with open('productsInJSON.json', 'a', encoding='utf-8') as file:
-            json.dump(product, file, ensure_ascii=False)
-            file.write(",")
-        print("--- %s seconds ---" % (time.time() - start_time))
-file = open('productsInJSON.json', 'a')
-file.write("]")
+        producer, topTable = get_top_table(main)
+        price = main.find("div", id = "price").text.split("\n")[1]
+        bottomTable = get_bottom_table(main)
+        lamp = ProductModel(id, header, title, price, producer, amount, topTable, bottomTable, url, mainPhoto, logo)
+        product = "\n" + lamp.convert_to_CSV() 
+        with open('productsInCSV.csv', 'a', encoding='utf-8') as file:
+            file.write(product)
 file.close()
