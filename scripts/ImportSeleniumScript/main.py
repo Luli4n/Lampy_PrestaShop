@@ -43,6 +43,8 @@ try:
 except TimeoutException:
     print("Loading took too much time!")
 
+time.sleep(1)
+
 driver.execute_script("arguments[0].scrollTop = arguments[0].scrollHeight", nav)
 
 driver.find_element(By.LINK_TEXT, 'Importuj').click()

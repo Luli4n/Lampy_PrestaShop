@@ -1,5 +1,4 @@
 from os import waitpid
-from typing import ClassVar, Concatenate
 
 
 class ProductModel:

@@ -5,6 +5,8 @@ import time
 
 from PageModel import PageModel
 from ProductModel import ProductModel
+from CombinationModel import CombinationModel
+
 start_time = time.time()
 def initializer():
     pages = []
@@ -75,6 +77,13 @@ def get_bottom_table(productInfo):
     return bottomTable
 
 for page in pages:
+
+    if page.title == "LAMPY BIURKOWE":
+        combinations_start_index=id+1
+
+    if page.title == "ŻYRANDOLE":
+        combinations_end_index=id+1
+
     url = page.url
     title = page.title
     products = get_content(mainUrl + url, productsIdInUrl)
@@ -107,4 +116,19 @@ for page in pages:
         product = "\n" + lamp.convert_to_CSV() 
         with open('productsInCSV.csv', 'a', encoding='utf-8') as file:
             file.write(product)
+file.close()
+
+file = open('combinationsInCSV.csv', 'w', encoding='utf-8')
+file.write("Product ID*;Attribute (Name:Type:Position)*;Value (Value:Position)*;Supplier reference;Reference;EAN13;UPC;Wholesale price;Impact on price;Ecotax;Quantity;Minimal quantity;Low stock level;Impact on weight;Default (0 = No, 1 = Yes);Combination available date;Image position;Image URLs (x,y,z...);Image alt texts (x,y,z...);ID / Name of shop;Advanced Stock Managment;Depends on stock;Warehouse")
+file.close()
+for x in range(combinations_start_index,combinations_end_index):
+    combination = CombinationModel(x,True)
+    combination = "\n"+ combination.convert_to_CSV()
+    with open('combinationsInCSV.csv', 'a', encoding='utf-8') as file:
+            file.write(combination)
+    combination = CombinationModel(x,False)
+    combination = "\n"+ combination.convert_to_CSV()
+    with open('combinationsInCSV.csv', 'a', encoding='utf-8') as file:
+            file.write(combination)
+
 file.close()
