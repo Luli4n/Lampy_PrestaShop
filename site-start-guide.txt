@@ -3,3 +3,6 @@
 2. docker-compose up
 chown -R www-data:root ./
 find . -type f -exec chmod 644 {} \; && find . -type d -exec chmod 755 {} \;
+
+SSL:
+https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8
