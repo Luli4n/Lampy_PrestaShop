@@ -68,3 +68,14 @@
 {/block}
 
 {block name='hook_extra'}{/block}
+{literal}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPQ1XZ92FF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-HPQ1XZ92FF');
+</script>
+{/literal}

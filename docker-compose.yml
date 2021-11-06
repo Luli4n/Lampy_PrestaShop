@@ -26,7 +26,7 @@ services:
   prestashop:
     depends_on:
       - db
-    image: 477ac1b64b81c11bb72274571f5cf7740b762dc2567a65a4afac6dddaced8a7b
+    image: prestassl
     ports:
       - 80:80
       - 443:443
@@ -40,7 +40,7 @@ services:
       DB_NAME: lights-shop
       PS_DEV_MODE: 0
       PS_DOMAIN: localhost:80
-      ALLOW_OVERRIDE: true
+      ALLOW_OVERRIDE: 1
     volumes:
       - ./webshop:/var/www/html
       - ./ssl/:/etc/apache2/sites-available
