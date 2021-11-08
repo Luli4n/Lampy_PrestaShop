@@ -107,6 +107,22 @@
     {block name='hook_before_body_closing_tag'}
       {hook h='displayBeforeBodyClosingTag'}
     {/block}
+    {literal}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HPQ1XZ92FF"></script>
+<script>
+   window.dataLayer = window.dataLayer || [];
+    function gaInit() {
+      dataLayer.push(arguments);
+    }
+    gaInit('js', new Date());
+    gaInit('config', 'G-HPQ1XZ92FF', { 'anonymize_ip': true });
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+</script>
+{/literal}
   </body>
 
 </html>
