@@ -2724,7 +2724,9 @@ class ProductCore extends ObjectModel
         }
         // Thus you can avoid one query per product, because there will be only one query for all the products of the cart
         Product::cacheFrontFeatures($products_ids, $id_lang);
-
+	foreach($result as $index => $pro_id) {
+		if($pro_id['id_product'] == 11) unset($result[$index]);
+	}
         return Product::getProductsProperties((int) $id_lang, $result);
     }
 

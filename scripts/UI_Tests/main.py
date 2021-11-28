@@ -15,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
 from selenium.common.exceptions import NoSuchElementException 
 
-driver = webdriver.Chrome(r'/home/lulian/Documents/Lampy_PrestaShop/scripts/ImportSeleniumScript/seleniumdriver/linux/chromedriver')
+driver = webdriver.Chrome(r'C:\Users\klaud\OneDrive\Pulpit\BE\Lampy_PrestaShop\scripts\ImportSeleniumScript\seleniumdriver\win\chromedriver.exe')
 driver.maximize_window()
 
 def add_items_to_cart(category_url, count):
@@ -199,3 +199,4 @@ fill_address()
 choose_delivery()
 choose_payment()
 check_status()
+driver.close()

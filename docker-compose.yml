@@ -42,5 +42,5 @@ services:
       PS_DOMAIN: localhost:80
       ALLOW_OVERRIDE: 1
     volumes:
-      - ./webshop:/var/www/html
+      - /var/www/html
       - ./ssl/:/etc/apache2/sites-available

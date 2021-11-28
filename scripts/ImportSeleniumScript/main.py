@@ -12,7 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
 
-driver = webdriver.Chrome(r'/home/lulian/Documents/Lampy_PrestaShop/scripts/ImportSeleniumScript/seleniumdriver/linux/chromedriver')
+driver = webdriver.Chrome(r'C:\Users\klaud\OneDrive\Pulpit\BE\Lampy_PrestaShop\scripts\ImportSeleniumScript\seleniumdriver\win\chromedriver.exe')
 
 def importOneFacility(facility,filename):
 
@@ -128,6 +128,6 @@ time.sleep(0.5)
 
 indexes.click()
             
-WebDriverWait(driver, 10000).until(EC.presence_of_element_located((By.XPATH,"//*[text()='Zaktualizowano pomyślnie.']")))
+WebDriverWait(driver, 10000).until(EC.element_to_be_clickable((By.CSS_SELECTOR,"button.close")))
 		
 driver.close()
