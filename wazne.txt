@@ -1,0 +1,5 @@
+scp -oProxyCommand="ssh -W %h:%p rsww@172.20.83.101" "./1638112022-52cd5f70.sql" hdoop@actina15.maas:/mnt/block-storage/students/projects/students-swarm-services/BE_179927
+
+
+
+scp -P 9927 "./1638112022-52cd5f70.sql" klaud@127.0.0.1:/mnt/block-storage/students/projects/students-swarm-services/BE_179927

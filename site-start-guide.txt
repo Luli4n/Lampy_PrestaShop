@@ -9,3 +9,8 @@ https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8
 
 w php.ini w sekcji openssl dopisac 
 openssl.cafile="/etc/apache2/sites-available/RootCA.crt"
+
+
+ssh -L <port_na_local_hoscie>:<ip_address_klastra>:<port_na_klastrze> <user>@<ip_address_serwera>
+
+scp -oProxyJump=serwer "./1638112022-52cd5f70.sql" serwer-do-dockera:/mnt/block-storage/students/projects/students-swarm-services/BE_179927
