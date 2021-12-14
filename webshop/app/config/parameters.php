@@ -1,11 +1,11 @@
 <?php return array (
-  'parameters' => 
+  'parameters' =>
   array (
-    'database_host' => 'db',
-    'database_port' => '',
-    'database_name' => 'lights-shop',
-    'database_user' => 'root',
-    'database_password' => 'root',
+    'database_host' => 'actina15.maas',
+    'database_port' => '3306',
+    'database_name' => 'be_179927_db',
+    'database_user' => 'be_179927',
+    'database_password' => 'haslo',
     'database_prefix' => 'ps_',
     'database_engine' => 'InnoDB',
     'mailer_transport' => 'smtp',

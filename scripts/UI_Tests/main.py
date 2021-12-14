@@ -60,7 +60,7 @@ def add_items_to_cart(category_url, count):
 
 
 def delete_one_item():
-    driver.get("https://localhost/koszyk")
+    driver.get("https://localhost:9927/index.php?controller=cart&action=show")
 
     page_has_loaded()
     time.sleep(0.5)
@@ -76,7 +76,7 @@ def delete_one_item():
     element.click()
 
 def create_account():
-    driver.get("https://localhost/zam%C3%B3wienie")
+    driver.get("https://localhost:9927/index.php?controller=order")
 
     page_has_loaded()
 
@@ -173,7 +173,7 @@ def choose_payment():
 
 def check_status():
 
-    driver.get("https://localhost/moje-konto")
+    driver.get("https://localhost:9927/index.php?controller=my-account")
     page_has_loaded()
 
     driver.find_element(By.XPATH,'//*[text()[contains(., "Historia i szczegóły zamówień")]]').click()
@@ -191,8 +191,8 @@ lamps_count = 10
 count_from_first_tab = random.randint(1,lamps_count-1)
 count_from_second_tab = lamps_count - count_from_first_tab
 
-add_items_to_cart("https://localhost/3-nowoczesne",count_from_first_tab)
-add_items_to_cart("https://localhost/14-lazienkowe",count_from_second_tab)
+add_items_to_cart("https://localhost:9927/index.php?id_category=3&controller=category",count_from_first_tab)
+add_items_to_cart("https://localhost:9927/index.php?id_category=14&controller=category",count_from_second_tab)
 delete_one_item()
 email,password = create_account()
 fill_address()
